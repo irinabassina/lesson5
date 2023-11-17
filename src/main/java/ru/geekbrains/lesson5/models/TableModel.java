@@ -13,7 +13,7 @@ public class TableModel implements Model {
     @Override
     public Collection<Table> loadTables() {
 
-        if (tables == null){
+        if (tables == null) {
             tables = new ArrayList<>();
 
             tables.add(new Table());
@@ -29,7 +29,7 @@ public class TableModel implements Model {
     public int reservationTable(Date reservationDate, int tableNo, String name) {
 
         for (Table table : loadTables()) {
-            if (table.getNo() == tableNo){
+            if (table.getNo() == tableNo) {
                 Reservation reservation = new Reservation(table, reservationDate, name);
                 table.getReservations().add(reservation);
                 return reservation.getId();
@@ -42,12 +42,20 @@ public class TableModel implements Model {
     /**
      * TO DO: Разработать самостоятельно
      * Поменять бронь столика
-     * @param oldReservation номер старого резерва (для снятия)
+     *
+     * @param oldReservation  номер старого резерва (для снятия)
      * @param reservationDate дата резерва столика
-     * @param tableNo номер столика
-     * @param name Имя
+     * @param tableNo         номер столика
+     * @param name            Имя
      */
-    public int changeReservationTable(int oldReservation, Date reservationDate, int tableNo, String name){
-        return -1;
+    public int changeReservationTable(int oldReservation, Date reservationDate, int tableNo, String name) {
+
+        for (Table table : loadTables()) {
+            if (table.getReservations().removeIf(reservation -> reservation.getId() == oldReservation)) {
+                System.out.printf("Отменен резерв: #%d\n", oldReservation);
+                return reservationTable(reservationDate, tableNo, name);
+            }
+        }
+        throw new RuntimeException("Некорректный номер старого бронирования.");
     }
 }

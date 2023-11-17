@@ -51,13 +51,16 @@ public class BookingView implements View {
     }
 
     /**
-     * TO DO: метод должен заработать!
      * Действие клиента (пользователь нажал на кнопку), изменение бронирования столика
      * @param orderDate дата бронирования
      * @param tableNo номер столика
      * @param name Имя
      */
-    public void changeReservationTable(int oldReservation, Date orderDate, int tableNo, String name){
+    public void changeReservationTable(int oldReservation, Date orderDate, int tableNo, String name) {
+        System.out.println("Возбуждается событие изменение бронирования столика");
+        System.out.println("Происходит уведомление наблюдателей ...");
+        for (ViewObserver observer : observers) {
+            observer.onChangeReservationTable(oldReservation, orderDate, tableNo, name);
+        }
     }
-
 }

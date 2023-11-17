@@ -21,14 +21,28 @@ public class BookingPresenter implements ViewObserver {
 
     @Override
     public void onReservationTable(Date orderDate, int tableNo, String name) {
-        System.out.println("Презентер реагирует на событие");
+        System.out.println("Презентер реагирует на событие создания бронирования");
         try {
             int reservationNo = model.reservationTable(orderDate, tableNo, name);
             view.showReservationTableResult(reservationNo);
         }
         catch (RuntimeException e){
+            System.out.println(e.getMessage());
             view.showReservationTableResult(-1);
         }
 
+    }
+
+    @Override
+    public void onChangeReservationTable(int oldReservation, Date orderDate, int tableNo, String name) {
+        System.out.println("Презентер реагирует на событие изменения бронирования");
+        try {
+            int reservationNo = model.changeReservationTable(oldReservation, orderDate, tableNo, name);
+            view.showReservationTableResult(reservationNo);
+        }
+        catch (RuntimeException e){
+            System.out.println(e.getMessage());
+            view.showReservationTableResult(-1);
+        }
     }
 }

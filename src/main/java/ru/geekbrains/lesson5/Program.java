@@ -16,9 +16,12 @@ public class Program {
         BookingPresenter bookingPresenter = new BookingPresenter(tableModel, bookingView);
         bookingPresenter.updateTablesUI();
         bookingView.reservationTable(new Date(), 3, "Станислав");
+        bookingView.reservationTable(new Date(), 1, "Жандарбек");
+        bookingView.reservationTable(new Date(), 2, "Евгений");
+        bookingView.reservationTable(new Date(), 4, "Ботагоз");
 
-
-        bookingView.changeReservationTable(1004, new Date(), 2, "Станислав");
+        bookingView.changeReservationTable(1009, new Date(), 5, "Ботагоз");
+        bookingView.changeReservationTable(1001, new Date(), 5, "Станислав");
 
     }
 
